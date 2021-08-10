@@ -1,0 +1,82 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Program Name: Gatherers (C)                                                                                            //
+//  Author: Jeffrey Bednar                                                                                                 //
+//  Copyright: Illusion Interactive, 2011                                                                                  //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#ifndef _MAIN_RC_
+#define _MAIN_RC_
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#include "main.h"
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ICO_MAIN ICON "II.ico"
+IMG_MAIN BITMAP "Illusion Interactive.bmp"
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+DLG_LOAD DIALOGEX 0,0,478,157
+CAPTION "Illusion Interactive"
+FONT 8,"MS Sans Serif"
+STYLE 0x90800800
+EXSTYLE 0x00000000 {
+    CONTROL "#200",DLG_LOAD_IMG,"Static",0x5000020e,0,0,478,157,0x00000000
+	CONTROL "",DLG_LOAD_STATUS,"Static",0x50000000,4,145,470,9,0x00000000
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+MAIN_MENU MENU {
+    POPUP "&Game" {
+        MENUITEM "Free &Resources", MENU_FILE_FREE
+        MENUITEM SEPARATOR
+        MENUITEM "&Print Entity List", MENU_FILE_PRINT
+        MENUITEM SEPARATOR
+        MENUITEM "&Exit", MENU_FILE_EXIT
+    }
+    POPUP "&Delete" {
+        MENUITEM "&Selected Entities", MENU_DELETE_SELECTED
+        MENUITEM SEPARATOR
+        MENUITEM "&Workers", MENU_DELETE_WORKER
+        MENUITEM "&Command Centers", MENU_DELETE_COMMAND
+        MENUITEM "&Mineral Fields", MENU_DELETE_MINERAL
+        MENUITEM "S&upply Depots", MENU_DELETE_SUPPLY
+        MENUITEM "&Refineries", MENU_DELETE_REFINERY
+        MENUITEM SEPARATOR
+        MENUITEM "&All Entities", MENU_DELETE_ALL
+    }
+    POPUP "&Build" {
+        MENUITEM "&None", MENU_BUILD_NONE, CHECKED
+        MENUITEM SEPARATOR
+        MENUITEM "&Worker", MENU_BUILD_WORKER
+        MENUITEM "&Command Center", MENU_BUILD_COMMAND
+        MENUITEM "&Mineral Field", MENU_BUILD_MINERAL
+        MENUITEM "&Supply Depot", MENU_BUILD_SUPPLY
+        MENUITEM "&Refinery", MENU_BUILD_REFINERY
+    }
+    POPUP "&Options" {
+        MENUITEM "&Begin Simulation", MENU_OPTIONS_BEGIN
+        MENUITEM SEPARATOR
+        MENUITEM "Draw Diagnosti&cs", MENU_OPTIONS_DIAGNOSTICS
+        MENUITEM "Draw With &Transparency", MENU_OPTIONS_MASKING
+        MENUITEM "&Draw Resources", MENU_OPTIONS_RESOURCES
+        MENUITEM "D&raw Statuses", MENU_OPTIONS_STATUSES
+        MENUITEM "Dr&aw Minor Vectors", MENU_OPTIONS_SHOW_MINOR
+        MENUITEM "Dra&w Major Vectors", MENU_OPTIONS_SHOW_MAJOR
+        MENUITEM SEPARATOR
+        MENUITEM "&Fullscreen", MENU_OPTIONS_FULLSCREEN
+    }
+    POPUP "&Clear" {
+        MENUITEM "&Selected Entities", MENU_CLEAR_SELECTED
+        MENUITEM SEPARATOR
+        MENUITEM "Total &Mineral Count", MENU_CLEAR_MINERAL_COUNT
+        MENUITEM "Total &Gas Count", MENU_CLEAR_GAS_COUNT
+        MENUITEM "Total &Resource Count", MENU_CLEAR_ALL_COUNT
+    }
+    POPUP "&Sort" {
+        MENUITEM "&Workers to Front", MENU_SORT_WORKERS
+        MENUITEM "&Command Centers to Front", MENU_SORT_COMMANDS
+        MENUITEM "&Mineral Fields to Front", MENU_SORT_MINERALS
+        MENUITEM "&Supply Depots to Front", MENU_SORT_SUPPLY
+        MENUITEM "&Refineries to Front", MENU_SORT_REFINERIES
+        MENUITEM SEPARATOR
+        MENUITEM "&Obstacles to Front", MENU_SORT_OBSTACLES
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#endif
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
