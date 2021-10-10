@@ -1,14 +1,11 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Linux Win32 - Launch application",
+            "name": "Win64 - Launch application",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/Gatherers.exe",
+            "program": "${workspaceRoot}\\Gatherers.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -22,8 +19,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Linux Win32 - Build application",
-            "miDebuggerPath": "/usr/bin/gdb"
+            "preLaunchTask": "Win64 - Build application.",
+            "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe"
         }
     ]
 }

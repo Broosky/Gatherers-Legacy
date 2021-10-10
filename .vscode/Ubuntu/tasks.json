@@ -2,8 +2,8 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "Linux Win32 - Build resources.",
-            "command": "/usr/bin/i686-w64-mingw32-windres",
+            "label": "Linux Win64 - Build resources.",
+            "command": "/usr/bin/x86_64-w64-mingw32-windres",
             "args": [
                 "-J",
                 "rc",
@@ -28,8 +28,8 @@
         },
         {
             "type": "shell",
-            "label": "Linux Win32 - Build application.",
-            "command": "/usr/bin/i686-w64-mingw32-gcc",
+            "label": "Linux Win64 - Build application.",
+            "command": "/usr/bin/x86_64-w64-mingw32-gcc",
             "args": [
                 "-g",
                 "-Wall",
@@ -52,7 +52,7 @@
                 "isDefault": true
             },
             "dependsOn": [
-                "Linux Win32 - Build resources."
+                "Linux Win64 - Build resources."
             ],
             "detail": "Task to build the application. Will build prerequisite resources."
         }

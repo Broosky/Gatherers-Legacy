@@ -2,17 +2,17 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "Win64 - Build resources.",
-            "command": "C:\\msys64\\mingw64\\bin\\windres.exe",
+            "label": "Linux Win32 - Build resources.",
+            "command": "/usr/bin/i686-w64-mingw32-windres",
             "args": [
                 "-J",
                 "rc",
                 "-O",
                 "coff",
                 "-i",
-                "${workspaceRoot}\\main.rc",
+                "${workspaceRoot}/main.rc",
                 "-o",
-                "${workspaceRoot}\\main.res"
+                "${workspaceRoot}/main.res"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -28,18 +28,18 @@
         },
         {
             "type": "shell",
-            "label": "Win64 - Build application.",
-            "command": "C:\\msys64\\mingw64\\bin\\x86_64-w64-mingw32-gcc.exe",
+            "label": "Linux Win32 - Build application.",
+            "command": "/usr/bin/i686-w64-mingw32-gcc",
             "args": [
                 "-g",
                 "-Wall",
                 "-O3",
                 "-mwindows",
-                "${workspaceRoot}\\*.c",
-                "${workspaceRoot}\\*.h",
-                "${workspaceRoot}\\main.res",
+                "${workspaceRoot}/*.c",
+                "${workspaceRoot}/*.h",
+                "${workspaceRoot}/main.res",
                 "-o",
-                "${workspaceRoot}\\Gatherers.exe"
+                "${workspaceRoot}/Gatherers.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -52,7 +52,7 @@
                 "isDefault": true
             },
             "dependsOn": [
-                "Win64 - Build resources."
+                "Linux Win32 - Build resources."
             ],
             "detail": "Task to build the application. Will build prerequisite resources."
         }

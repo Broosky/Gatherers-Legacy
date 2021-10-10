@@ -10,4 +10,4 @@ Compile w/x86_64-w64-mingw32-xxx and launch over Wine64.
 
 Windows:
 
-Uhh -- todo: make new launch/tasks.json w/default install location of MinGW. It seems VSCode doesn't allow parallel tasks?
+Install MSYS2 to C.
