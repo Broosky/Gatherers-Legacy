@@ -205,6 +205,38 @@ LRESULT CALLBACK PROC_WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
                     }
                     break;
                 }
+                case MENU_OPTIONS_ENABLE_TRANSLATIONS: {
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    if((*p_Globals).bEnableTranslations) {
+                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_ENABLE_TRANSLATIONS, MF_UNCHECKED);
+                        (*p_Globals).bEnableTranslations = !(*p_Globals).bEnableTranslations;
+                    }
+                    else {
+                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_ENABLE_TRANSLATIONS, MF_CHECKED);
+                        (*p_Globals).bEnableTranslations = !(*p_Globals).bEnableTranslations;
+                    }
+                    break;
+                }       
+                case MENU_OPTIONS_TOPMOST: {
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    if((*p_Globals).bTopmost) {
+                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_TOPMOST, MF_UNCHECKED);
+                        (*p_Globals).bTopmost = !(*p_Globals).bTopmost;
+                        SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0,  SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
+                        //LONG_PTR dwExStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+                        //dwExStyle &= ~WS_EX_TOPMOST;
+                        //SetWindowLongPtr(hWnd, GWL_EXSTYLE, dwExStyle);
+                    }
+                    else {
+                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_TOPMOST, MF_CHECKED);
+                        (*p_Globals).bTopmost = !(*p_Globals).bTopmost;
+                        SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0,  SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
+                        //LONG_PTR dwExStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
+                        //dwExStyle = WS_EX_TOPMOST;
+                        //SetWindowLongPtr(hWnd, GWL_EXSTYLE, dwExStyle);
+                    }
+                    break;
+                }
                 case MENU_OPTIONS_FULLSCREEN: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     if((*p_Globals).bFullScreen) {

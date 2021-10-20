@@ -15,147 +15,149 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define WIN32_LEAN_AND_MEAN
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define APP_NAME                    "Gatherers (C) V10.0"
-#define PI                          3.1416f
+#define APP_NAME                            "Gatherers (C) V10.0"
+#define PI                                  3.1416f
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Non-volatile resource constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define ICO_MAIN                    100
-#define IMG_MAIN                    200
-#define DLG_LOAD                    300
-#define DLG_LOAD_IMG                400
-#define DLG_LOAD_STATUS             501
+#define ICO_MAIN                            100
+#define IMG_MAIN                            200
+#define DLG_LOAD                            300
+#define DLG_LOAD_IMG                        400
+#define DLG_LOAD_STATUS                     500
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Non-volatile menu constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define MAIN_MENU                   600
-#define MENU_FILE_FREE              700
-#define MENU_FILE_EXIT              800
-#define MENU_FILE_PRINT             900
-#define MENU_DELETE_SELECTED        1000
-#define MENU_DELETE_WORKER          1001
-#define MENU_DELETE_COMMAND         1002
-#define MENU_DELETE_MINERAL         1003
-#define MENU_DELETE_SUPPLY          1004
-#define MENU_DELETE_REFINERY        1005
-#define MENU_DELETE_ALL             1100
-#define MENU_BUILD_NONE             1200
-#define MENU_BUILD_WORKER           1300
-#define MENU_BUILD_COMMAND          1400
-#define MENU_BUILD_MINERAL          1500
-#define MENU_BUILD_SUPPLY           1600
-#define MENU_BUILD_REFINERY         1700
-#define MENU_OPTIONS_BEGIN          1800
-#define MENU_OPTIONS_DIAGNOSTICS    1900
-#define MENU_OPTIONS_MASKING        2000
-#define MENU_OPTIONS_RESOURCES      2100
-#define MENU_OPTIONS_STATUSES       2200
-#define MENU_OPTIONS_FULLSCREEN     2300
-#define MENU_OPTIONS_SHOW_MINOR     2400
-#define MENU_OPTIONS_SHOW_MAJOR     2500
-#define MENU_CLEAR_SELECTED         2700
-#define MENU_CLEAR_MINERAL_COUNT    2800
-#define MENU_CLEAR_GAS_COUNT        2900
-#define MENU_CLEAR_ALL_COUNT        3000
-#define MENU_SORT_WORKERS           3100
-#define MENU_SORT_COMMANDS          3200
-#define MENU_SORT_MINERALS          3300
-#define MENU_SORT_SUPPLY            3400
-#define MENU_SORT_REFINERIES        3401
-#define MENU_SORT_OBSTACLES         3500
+#define MAIN_MENU                           600
+#define MENU_FILE_FREE                      700
+#define MENU_FILE_EXIT                      800
+#define MENU_FILE_PRINT                     900
+#define MENU_DELETE_SELECTED                1000
+#define MENU_DELETE_WORKER                  1020
+#define MENU_DELETE_COMMAND                 1040
+#define MENU_DELETE_MINERAL                 1060
+#define MENU_DELETE_SUPPLY                  1070
+#define MENU_DELETE_REFINERY                1080
+#define MENU_DELETE_ALL                     1100
+#define MENU_BUILD_NONE                     1200
+#define MENU_BUILD_WORKER                   1300
+#define MENU_BUILD_COMMAND                  1400
+#define MENU_BUILD_MINERAL                  1500
+#define MENU_BUILD_SUPPLY                   1600
+#define MENU_BUILD_REFINERY                 1700
+#define MENU_OPTIONS_BEGIN                  1800
+#define MENU_OPTIONS_DIAGNOSTICS            1900
+#define MENU_OPTIONS_MASKING                2000
+#define MENU_OPTIONS_RESOURCES              2100
+#define MENU_OPTIONS_STATUSES               2200
+#define MENU_OPTIONS_FULLSCREEN             2300
+#define MENU_OPTIONS_SHOW_MINOR             2400
+#define MENU_OPTIONS_SHOW_MAJOR             2500
+#define MENU_OPTIONS_ENABLE_TRANSLATIONS    2600
+#define MENU_OPTIONS_TOPMOST                2650
+#define MENU_CLEAR_SELECTED                 2700
+#define MENU_CLEAR_MINERAL_COUNT            2800
+#define MENU_CLEAR_GAS_COUNT                2900    
+#define MENU_CLEAR_ALL_COUNT                3000
+#define MENU_SORT_WORKERS                   3100
+#define MENU_SORT_COMMANDS                  3200
+#define MENU_SORT_MINERALS                  3300
+#define MENU_SORT_SUPPLY                    3400
+#define MENU_SORT_REFINERIES                3450
+#define MENU_SORT_OBSTACLES                 3500
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Non-volatile sorting constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define WORKERS_TO_FRONT            3600
-#define MINERALS_TO_FRONT           3700
-#define COMMANDS_TO_FRONT           3800
-#define SUPPLIES_TO_FRONT           3900
-#define REFINERIES_TO_FRONT         3901
-#define OBSTACLES_TO_FRONT          4000
+#define WORKERS_TO_FRONT                    3600
+#define MINERALS_TO_FRONT                   3700
+#define COMMANDS_TO_FRONT                   3800
+#define SUPPLIES_TO_FRONT                   3900
+#define REFINERIES_TO_FRONT                 3950
+#define OBSTACLES_TO_FRONT                  4000
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Non-volatile entity constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define ENTITY_NONE                 4001
-#define ENTITY_WORKER               4100
-#define ENTITY_MINERAL              4200
-#define ENTITY_COMMAND              4300
-#define ENTITY_SUPPLY               4400
-#define ENTITY_REFINERY             4500
-#define ENTITY_OBSTACLE             4600
+#define ENTITY_NONE                         4050
+#define ENTITY_WORKER                       4100
+#define ENTITY_MINERAL                      4200
+#define ENTITY_COMMAND                      4300
+#define ENTITY_SUPPLY                       4400
+#define ENTITY_REFINERY                     4500
+#define ENTITY_OBSTACLE                     4600
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Non-volatile animation constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define ANIMATE_WORKER_NORMAL       4700
-#define ANIMATE_WORKER_MINERALS     4800
-#define ANIMATE_WORKER_GAS          4900
-#define ANIMATE_COMMAND_NORMAL      5000
-#define ANIMATE_COMMAND_RECEIVE     5100
-#define ANIMATE_COMMAND_CREATING    5200
-#define ANIMATE_SUPPLY_NORMAL       5300
+#define ANIMATE_WORKER_NORMAL               4700
+#define ANIMATE_WORKER_MINERALS             4800
+#define ANIMATE_WORKER_GAS                  4900
+#define ANIMATE_COMMAND_NORMAL              5000
+#define ANIMATE_COMMAND_RECEIVE             5100
+#define ANIMATE_COMMAND_CREATING            5200
+#define ANIMATE_SUPPLY_NORMAL               5300
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Non-volatile rendering constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define RENDER_ROTATE               5400
-#define RENDER_SCALE                5500
+#define RENDER_ROTATE                       5400
+#define RENDER_SCALE                        5500
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Non-volatile message constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define MESSAGE_GAIN_MINERALS       5600
-#define MESSAGE_GAIN_GAS            5700
-#define MESSAGE_BONUS_MINERALS      5800
-#define MESSAGE_BONUS_GAS           5900
-#define MESSAGE_GENERAL_WARNING     6000
+#define MESSAGE_GAIN_MINERALS               5600
+#define MESSAGE_GAIN_GAS                    5700
+#define MESSAGE_BONUS_MINERALS              5800
+#define MESSAGE_BONUS_GAS                   5900
+#define MESSAGE_GENERAL_WARNING             6000
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Volatile command card constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define CARD_BLANK                  6100
+#define CARD_BLANK                          6100
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Volatile entity constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define WORKER_MOVE_SPEED           7.0f
-#define WORKER_MINERAL_DIVISOR      5.0f
-#define WORKER_GAS_DIVISOR          6.0f
-#define MINERAL_MOVE_SPEED          1.0f
-#define COMMAND_MOVE_SPEED          1.0f
-#define SUPPLY_MOVE_SPEED           1.0f
-#define REFINERY_MOVE_SPEED         1.0f
-#define MINERALS_PAUSE              1500.0f
-#define MINERALS_COMMAND_PAUSE      1500.0f
-#define REFINERY_PAUSE              2000.0f
-#define REFINERY_COMMAND_PAUSE      4000.0f
-#define MINERALS_PER_GRAB           1
-#define MINERALS_MULTIPLIER         3
-#define GAS_PER_GRAB                1
-#define GAS_MULTIPLIER              3
-#define MINERALS_START              50000
-#define GAS_START                   50000
-#define MINIMAP_SIZE                220.0f
+#define WORKER_MOVE_SPEED                   7.0f
+#define WORKER_MINERAL_DIVISOR              5.0f
+#define WORKER_GAS_DIVISOR                  6.0f
+#define MINERAL_MOVE_SPEED                  1.0f
+#define COMMAND_MOVE_SPEED                  1.0f
+#define SUPPLY_MOVE_SPEED                   1.0f
+#define REFINERY_MOVE_SPEED                 1.0f
+#define MINERALS_PAUSE                      1500.0f
+#define MINERALS_COMMAND_PAUSE              1500.0f
+#define REFINERY_PAUSE                      2000.0f
+#define REFINERY_COMMAND_PAUSE              4000.0f
+#define MINERALS_PER_GRAB                   1
+#define MINERALS_MULTIPLIER                 3
+#define GAS_PER_GRAB                        1
+#define GAS_MULTIPLIER                      3
+#define MINERALS_START                      50000
+#define GAS_START                           50000
+#define MINIMAP_SIZE                        220.0f
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Volatile building constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define SUPPLY_FROM_COMMAND         5
-#define COST_OF_COMMAND_MINERALS    100
-#define COST_OF_COMMAND_GAS         100
-#define SUPPLY_FROM_DEPOT           3
-#define COST_OF_DEPOT_MINERALS      75
-#define COST_OF_DEPOT_GAS           75
-#define SUPPLY_USED_WORKER          1
-#define COST_OF_WORKER_MINERALS     25
-#define COST_OF_WORKER_GAS          0
-#define COST_OF_REFINERY_MINERALS   50
-#define COST_OF_REFINERY_GAS        0
+#define SUPPLY_FROM_COMMAND                 5
+#define COST_OF_COMMAND_MINERALS            100
+#define COST_OF_COMMAND_GAS                 100
+#define SUPPLY_FROM_DEPOT                   3
+#define COST_OF_DEPOT_MINERALS              75
+#define COST_OF_DEPOT_GAS                   75
+#define SUPPLY_USED_WORKER                  1
+#define COST_OF_WORKER_MINERALS             25
+#define COST_OF_WORKER_GAS                  0
+#define COST_OF_REFINERY_MINERALS           50
+#define COST_OF_REFINERY_GAS                0
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Volatile drawing constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define PROCESS_FPS                 60.0f
-#define ANIMATE_FPS                 30.0f
-#define CLIENT_WIDTH                1280
-#define CLIENT_HEIGHT               720
+#define PROCESS_FPS                         100.0f
+#define ANIMATE_FPS                         30.0f
+#define CLIENT_WIDTH                        1280
+#define CLIENT_HEIGHT                       720
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Volatile artificial intelligence constants.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define SUFFICIENTLY_CLOSE          5.0f
-#define COLLISION_BUFFER            5.0f
+#define SUFFICIENTLY_CLOSE                  5.0f
+#define COLLISION_BUFFER                    5.0f
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct {
     int iX;
@@ -317,6 +319,8 @@ typedef struct {
     int bDrawMajor;
     int bDrawStatuses;
     int bDrawResources;
+    int bEnableTranslations;
+    int bTopmost;
     int bEnableMasking;
     int bDiagnostics;
     int bBegin;

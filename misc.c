@@ -22,7 +22,7 @@ void __cdecl MISC_ResizeWindow(HWND hWnd, int iClientWidth, int iClientHeight) {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     GetWindowRect(hWnd, &WindowArea);
     GetClientRect(hWnd, &ClientArea);
-    int iLRBBorderWidth = WindowArea.right - WindowArea.left - ClientArea.right >> 1;
+    int iLRBBorderWidth = WindowArea.right - WindowArea.left - (ClientArea.right >> 1);
     int iTopBorderWidth = WindowArea.bottom - WindowArea.top - ClientArea.bottom - iLRBBorderWidth;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Resize the window to the proper size.

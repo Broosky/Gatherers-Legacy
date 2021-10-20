@@ -2,10 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Win64 - Launch application",
+            "name": "Linux Win64 - Launch application",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}\\Gatherers.exe",
+            "program": "${workspaceRoot}/Gatherers.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -19,8 +19,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Win64 - Build application.",
-            "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe"
+            "preLaunchTask": "Linux Win64 - Build application.",
+            "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
 }

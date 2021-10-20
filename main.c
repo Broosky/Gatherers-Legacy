@@ -47,7 +47,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     GLOBALS_Init(p_Globals, hInstance);
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     HWND hWnd = CreateWindowEx(
-        WS_EX_TOPMOST,
+        0,
         APP_NAME,
         APP_NAME,
         WS_OVERLAPPEDWINDOW,

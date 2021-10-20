@@ -215,7 +215,7 @@ int __cdecl ENTITY_Restrict(int iType, GLOBALS* p_Globals) {
 int __cdecl ENTITY_Overlap(int iType, IMAGES* p_Images, GLOBALS* p_Globals) {
     FPOINT Position = {15.0f, 85.0f};
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    FPOINT Size;
+    FPOINT Size = {0.0f, 0.0f};
     switch(iType) {
         case ENTITY_WORKER: {
             Size.fX = (*p_Images).Worker[0].Bitmap.bmWidth;
@@ -615,7 +615,7 @@ void __cdecl ENTITY_DeleteAll(GLOBALS* p_Globals) {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void __cdecl ENTITY_DeleteSelected(GLOBALS* p_Globals) {
-    ENTITY* p_Previous;
+    ENTITY* p_Previous = NULL;
     ENTITY* p_Current = (*p_Globals).p_RootEntity;
     while(p_Current) {
         if((*p_Current).bIsSelected) {
@@ -695,7 +695,7 @@ void __cdecl ENTITY_DeleteSpecific(ENTITY* p_Entity, GLOBALS* p_Globals) {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void __cdecl ENTITY_DeleteEntityType(int iType, GLOBALS* p_Globals) {
-    ENTITY* p_Previous;
+    ENTITY* p_Previous = NULL;
     ENTITY* p_Current = (*p_Globals).p_RootEntity;
     while(p_Current) {
         if((*p_Current).iType == iType) {
@@ -738,7 +738,7 @@ void __cdecl ENTITY_DeleteEntityType(int iType, GLOBALS* p_Globals) {
 // Using 'goto' statements in this function because I wanted to sort different entity types in one central place.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void __cdecl ENTITY_SortToFront(int iCondition, GLOBALS* p_Globals) {
-    ENTITY* p_Previous;
+    ENTITY* p_Previous = NULL;
     ENTITY* p_Current = (*p_Globals).p_RootEntity;
     while(p_Current) {
         switch(iCondition) {

@@ -58,6 +58,9 @@ MAIN_MENU MENU {
         MENUITEM "Dr&aw Minor Vectors", MENU_OPTIONS_SHOW_MINOR
         MENUITEM "Dra&w Major Vectors", MENU_OPTIONS_SHOW_MAJOR
         MENUITEM SEPARATOR
+        MENUITEM "Enable Tra&nslations", MENU_OPTIONS_ENABLE_TRANSLATIONS
+        MENUITEM SEPARATOR
+        MENUITEM "T&opmost", MENU_OPTIONS_TOPMOST
         MENUITEM "&Fullscreen", MENU_OPTIONS_FULLSCREEN
     }
     POPUP "&Clear" {

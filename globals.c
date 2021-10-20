@@ -47,6 +47,8 @@ void __cdecl GLOBALS_Init(GLOBALS* p_Globals, HINSTANCE hInstance) {
     (*p_Globals).iMineralCount = 1000;
     (*p_Globals).iGasCount = 1500;
     (*p_Globals).iTotalSupply = 10;
+    (*p_Globals).bEnableTranslations = 0;
+    (*p_Globals).bTopmost = 0;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // The map that we are going to use that is shared among the terrain and minimap images.
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
