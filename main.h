@@ -295,6 +295,20 @@ typedef struct {
 } TIMEBASE;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct {
+    int bDrawMinor;
+    int bDrawMajor;
+    int bDrawStatuses;
+    int bDrawResources;
+    int bEnableTranslations;
+    int bTopmost;
+    int bEnableMasking;
+    int bBegin;
+    int bDiagnostics;
+    int bFullScreen;
+    HMENU hMenu;
+} MENU;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct {
     int iMapIndex;
     int iThreshold;
     int iCurrentSupply;
@@ -314,16 +328,6 @@ typedef struct {
     int iSecondTick;
     int bAnimate;
     int bDrawSelectionRect;
-    int bFullScreen;
-    int bDrawMinor;
-    int bDrawMajor;
-    int bDrawStatuses;
-    int bDrawResources;
-    int bEnableTranslations;
-    int bTopmost;
-    int bEnableMasking;
-    int bDiagnostics;
-    int bBegin;
     int bCreate;
     char szBuffer[100];
     float fProcessTime;
@@ -337,121 +341,126 @@ typedef struct {
     HINSTANCE hInstance;
     MESSAGE* p_RootMessage;
     ENTITY* p_RootEntity;
-    HMENU hMenu;
 } GLOBALS;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Global because PROC_WindowProc() uses the double buffer and images structures (immutable arguments).
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 extern GLOBALS* p_Globals;
+extern MENU* p_Menu;
 extern DBLBUF* p_DblBuf;
 extern IMAGES* p_Images;
 extern SETTINGS* p_Settings;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void        __cdecl SETTINGS_Zero                (SETTINGS*);
-SETTINGS*   __cdecl SETTINGS_Create              (GLOBALS*);
-void        __cdecl SETTINGS_InitFromFile        (SETTINGS*);
-void        __cdecl SETTINGS_Kill                (SETTINGS*, GLOBALS*);
+void        __cdecl     SETTINGS_Zero               (SETTINGS*);
+SETTINGS*   __cdecl     SETTINGS_Create             (GLOBALS*);
+void        __cdecl     SETTINGS_InitFromFile       (SETTINGS*);
+void        __cdecl     SETTINGS_Kill               (SETTINGS*, GLOBALS*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void        __cdecl  DBLBUF_Zero                 (DBLBUF*);
-DBLBUF*     __cdecl  DBLBUF_Create               (HWND, GLOBALS*);
-void        __cdecl  DBLBUF_Resize               (DBLBUF*, HWND, COLORREF, GLOBALS*);
-void        __cdecl  DBLBUF_Kill                 (DBLBUF*, GLOBALS*);
-IPOINT      __cdecl  DBLBUF_FindBlitterPoint     (char);
-void        __cdecl  DBLBUF_SetBlitter           (DBLBUF*, PICTURE*);
-void        __cdecl  DBLBUF_Blitter              (DBLBUF*, char*, FPOINT, int);
-void        __cdecl  DBLBUF_Clear                (DBLBUF*, COLORREF);
-void        __cdecl  DBLBUF_DrawEntityMinorVector(DBLBUF*, ENTITY*, COLORREF);
-void        __cdecl  DBLBUF_DrawEntityMajorVector(DBLBUF*, ENTITY*, COLORREF);
-void        __cdecl  DBLBUF_DrawEntityEllipse    (DBLBUF*, ENTITY*, COLORREF, COLORREF);
-void        __cdecl  DBLBUF_DrawEntity           (DBLBUF*, ENTITY*, int);
-void        __cdecl  DBLBUF_ClearEntity          (DBLBUF*, ENTITY*, COLORREF);
-void        __cdecl  DBLBUF_FlipEntity           (DBLBUF*, ENTITY*);
-void        __cdecl  DBLBUF_Flip                 (DBLBUF*);
-void        __cdecl  DBLBUF_FlipArea             (DBLBUF*, int, int, int, int);
-void        __cdecl  DBLBUF_DrawPicture          (DBLBUF*, PICTURE*, int);
-void        __cdecl  DBLBUF_DrawPictureAt        (DBLBUF*, PICTURE*, FPOINT, int);
+void        __cdecl     DBLBUF_Zero                 (DBLBUF*);
+DBLBUF*     __cdecl     DBLBUF_Create               (HWND, GLOBALS*);
+void        __cdecl     DBLBUF_Resize               (DBLBUF*, HWND, COLORREF, GLOBALS*);
+void        __cdecl     DBLBUF_Kill                 (DBLBUF*, GLOBALS*);
+IPOINT      __cdecl     DBLBUF_FindBlitterPoint     (char);
+void        __cdecl     DBLBUF_SetBlitter           (DBLBUF*, PICTURE*);
+void        __cdecl     DBLBUF_Blitter              (DBLBUF*, char*, FPOINT, int);
+void        __cdecl     DBLBUF_Clear                (DBLBUF*, COLORREF);
+void        __cdecl     DBLBUF_DrawEntityMinorVector(DBLBUF*, ENTITY*, COLORREF);
+void        __cdecl     DBLBUF_DrawEntityMajorVector(DBLBUF*, ENTITY*, COLORREF);
+void        __cdecl     DBLBUF_DrawEntityEllipse    (DBLBUF*, ENTITY*, COLORREF, COLORREF);
+void        __cdecl     DBLBUF_DrawEntity           (DBLBUF*, ENTITY*, int);
+void        __cdecl     DBLBUF_ClearEntity          (DBLBUF*, ENTITY*, COLORREF);
+void        __cdecl     DBLBUF_FlipEntity           (DBLBUF*, ENTITY*);
+void        __cdecl     DBLBUF_Flip                 (DBLBUF*);
+void        __cdecl     DBLBUF_FlipArea             (DBLBUF*, int, int, int, int);
+void        __cdecl     DBLBUF_DrawPicture          (DBLBUF*, PICTURE*, int);
+void        __cdecl     DBLBUF_DrawPictureAt        (DBLBUF*, PICTURE*, FPOINT, int);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void        __cdecl  TIMEBASE_Zero               (TIMEBASE*);
-TIMEBASE*   __cdecl  TIMEBASE_Create             (float, GLOBALS*);
-int         __cdecl  TIMEBASE_Tick               (TIMEBASE*);
-void        __cdecl  TIMEBASE_StartTimer         (TIMEBASE*);
-float       __cdecl  TIMEBASE_EndTimer           (TIMEBASE*);
-void        __cdecl  TIMEBASE_Kill               (TIMEBASE*, GLOBALS*);
+void        __cdecl     TIMEBASE_Zero               (TIMEBASE*);
+TIMEBASE*   __cdecl     TIMEBASE_Create             (float, GLOBALS*);
+int         __cdecl     TIMEBASE_Tick               (TIMEBASE*);
+void        __cdecl     TIMEBASE_StartTimer         (TIMEBASE*);
+float       __cdecl     TIMEBASE_EndTimer           (TIMEBASE*);
+void        __cdecl     TIMEBASE_Kill               (TIMEBASE*, GLOBALS*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void        __cdecl  ENTITY_Zero                 (ENTITY*);
-void        __cdecl  ENTITY_Create               (FPOINT, int, IMAGES*, GLOBALS*);
-int         __cdecl  ENTITY_Restrict             (int, GLOBALS*);
-int         __cdecl  ENTITY_Overlap              (int, IMAGES*, GLOBALS*);
-void        __cdecl  ENTITY_Pause                (ENTITY*, float);
-int         __cdecl  ENTITY_CollidedWith         (ENTITY*, ENTITY*);
-int         __cdecl  ENTITY_WithinPoint          (ENTITY*, FPOINT);
-void        __cdecl  ENTITY_MoveTo               (ENTITY*, ENTITY*, GLOBALS*);
-void        __cdecl  ENTITY_MoveToPoint          (ENTITY*, FPOINT, GLOBALS*);
-void        __cdecl  ENTITY_FindMinorVector      (ENTITY*, GLOBALS*);
-FPOINT      __cdecl  ENTITY_MinorVectorHead      (ENTITY*, ENTITY*, GLOBALS*);
-void        __cdecl  ENTITY_UpdatePosition       (ENTITY*, GLOBALS*);
-void        __cdecl  ENTITY_Redefine             (int, GLOBALS*);
-void        __cdecl  ENTITY_DeleteAll            (GLOBALS*);
-void        __cdecl  ENTITY_DeleteSelected       (GLOBALS*);
-void        __cdecl  ENTITY_DeleteSpecific       (ENTITY*, GLOBALS*);
-void        __cdecl  ENTITY_DeleteEntityType     (int, GLOBALS*);
-void        __cdecl  ENTITY_SortToFront          (int, GLOBALS*);
-void        __cdecl  ENTITY_PrintList            (GLOBALS*);
-void        __cdecl  ENTITY_Animate              (ENTITY*, IMAGES*);
+void        __cdecl     ENTITY_Zero                 (ENTITY*);
+void        __cdecl     ENTITY_Create               (FPOINT, int, IMAGES*, GLOBALS*);
+int         __cdecl     ENTITY_Restrict             (int, GLOBALS*);
+int         __cdecl     ENTITY_Overlap              (int, IMAGES*, GLOBALS*);
+void        __cdecl     ENTITY_Pause                (ENTITY*, float);
+int         __cdecl     ENTITY_CollidedWith         (ENTITY*, ENTITY*);
+int         __cdecl     ENTITY_WithinPoint          (ENTITY*, FPOINT);
+void        __cdecl     ENTITY_MoveTo               (ENTITY*, ENTITY*, GLOBALS*);
+void        __cdecl     ENTITY_MoveToPoint          (ENTITY*, FPOINT, GLOBALS*);
+void        __cdecl     ENTITY_FindMinorVector      (ENTITY*, GLOBALS*);
+FPOINT      __cdecl     ENTITY_MinorVectorHead      (ENTITY*, ENTITY*, GLOBALS*);
+void        __cdecl     ENTITY_UpdatePosition       (ENTITY*, GLOBALS*);
+void        __cdecl     ENTITY_Redefine             (int, GLOBALS*);
+void        __cdecl     ENTITY_DeleteAll            (GLOBALS*);
+void        __cdecl     ENTITY_DeleteSelected       (GLOBALS*);
+void        __cdecl     ENTITY_DeleteSpecific       (ENTITY*, GLOBALS*);
+void        __cdecl     ENTITY_DeleteEntityType     (int, GLOBALS*);
+void        __cdecl     ENTITY_SortToFront          (int, GLOBALS*);
+void        __cdecl     ENTITY_PrintList            (GLOBALS*);
+void        __cdecl     ENTITY_Animate              (ENTITY*, IMAGES*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-GLOBALS*    __cdecl  GLOBALS_Create              (void);
-void        __cdecl  GLOBALS_Zero                (GLOBALS*);
-int         __cdecl  GLOBALS_Kill                (GLOBALS*);
-void        __cdecl  GLOBALS_Init                (GLOBALS*, HINSTANCE);
+GLOBALS*    __cdecl     GLOBALS_Create              (void);
+void        __cdecl     GLOBALS_Zero                (GLOBALS*);
+int         __cdecl     GLOBALS_Kill                (GLOBALS*);
+void        __cdecl     GLOBALS_Init                (GLOBALS*, HINSTANCE);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-ENTITY*     __cdecl  AI_FindClosest              (ENTITY*, int, GLOBALS*);
-void        __cdecl  AI_HandleWorkers            (ENTITY*, GLOBALS*);
+ENTITY*     __cdecl     AI_FindClosest              (ENTITY*, int, GLOBALS*);
+void        __cdecl     AI_HandleWorkers            (ENTITY*, GLOBALS*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int         __cdecl  MISC_RandomNumber           (int, int);
-float       __cdecl  MISC_CalculateRadians       (float);
-void        __cdecl  MISC_ResizeWindow           (HWND, int, int);
+int         __cdecl     MISC_RandomNumber           (int, int);
+float       __cdecl     MISC_CalculateRadians       (float);
+void        __cdecl     MISC_ResizeWindow           (HWND, int, int);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void        __cdecl  PROC_ProcessScene           (DBLBUF*, GLOBALS*, IMAGES*, CARD*);
-void        __cdecl  PROC_DrawSelectionArea      (DBLBUF*, GLOBALS*, COLORREF);
-void        __cdecl  PROC_ApplyTranslations      (DBLBUF*, GLOBALS*, IMAGES*);
-void        __cdecl  PROC_UpdateAnimation        (GLOBALS*);
-void        __cdecl  PROC_DrawBackground         (DBLBUF*, GLOBALS*, IMAGES*);
-void        __cdecl  PROC_ProcessEntities        (DBLBUF*, GLOBALS*, IMAGES*);
-void        __cdecl  PROC_ProcessMessages        (DBLBUF*, GLOBALS*, IMAGES*);
-void        __cdecl  PROC_DrawDiagnostics        (DBLBUF*, GLOBALS*, IMAGES*);
-void        __cdecl  PROC_DrawResourceBar        (DBLBUF*, GLOBALS*, IMAGES*);
-void        __cdecl  PROC_DrawTaskbar            (DBLBUF*, GLOBALS*, IMAGES*, CARD*);
-void        __cdecl  PROC_DrawMinimap            (DBLBUF*, GLOBALS*, IMAGES*);
-void        __cdecl  PROC_DrawHUD                (DBLBUF*, GLOBALS*, IMAGES*, CARD*);
-void        __cdecl  PROC_DrawBuildLimits        (DBLBUF*, ENTITY*, IMAGES*);
-void        __cdecl  PROC_DrawBuildType          (DBLBUF*, GLOBALS*, IMAGES*);
+void        __cdecl     PROC_ProcessScene           (DBLBUF*, GLOBALS*, IMAGES*, CARD*, MENU*);
+void        __cdecl     PROC_DrawSelectionArea      (DBLBUF*, GLOBALS*, COLORREF);
+void        __cdecl     PROC_ApplyTranslations      (DBLBUF*, GLOBALS*, IMAGES*, MENU*);
+void        __cdecl     PROC_UpdateAnimation        (GLOBALS*);
+void        __cdecl     PROC_DrawBackground         (DBLBUF*, GLOBALS*, IMAGES*);
+void        __cdecl     PROC_ProcessEntities        (DBLBUF*, GLOBALS*, IMAGES*, MENU*);
+void        __cdecl     PROC_ProcessMessages        (DBLBUF*, GLOBALS*, IMAGES*, MENU*);
+void        __cdecl     PROC_DrawDiagnostics        (DBLBUF*, GLOBALS*, IMAGES*, MENU*);
+void        __cdecl     PROC_DrawResourceBar        (DBLBUF*, GLOBALS*, IMAGES*, MENU*);
+void        __cdecl     PROC_DrawTaskbar            (DBLBUF*, GLOBALS*, IMAGES*, CARD*, MENU*);
+void        __cdecl     PROC_DrawMinimap            (DBLBUF*, GLOBALS*, IMAGES*);
+void        __cdecl     PROC_DrawHUD                (DBLBUF*, GLOBALS*, IMAGES*, CARD*, MENU*);
+void        __cdecl     PROC_DrawBuildLimits        (DBLBUF*, ENTITY*, IMAGES*);
+void        __cdecl     PROC_DrawBuildType          (DBLBUF*, GLOBALS*, IMAGES*, MENU*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void        __cdecl  PICTURE_Zero                (PICTURE*);
-void        __cdecl  PICTURE_Load                (PICTURE*, FPOINT, char*, char*);
-void        __cdecl  PICTURE_Kill                (PICTURE*);
+void        __cdecl     PICTURE_Zero                (PICTURE*);
+void        __cdecl     PICTURE_Load                (PICTURE*, FPOINT, char*, char*);
+void        __cdecl     PICTURE_Kill                (PICTURE*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void        __cdecl  IMAGES_Zero                 (IMAGES*);
-IMAGES*     __cdecl  IMAGES_Create               (GLOBALS*);
-void        __cdecl  IMAGES_InitFromFile         (IMAGES*, HWND);
-void        __cdecl  IMAGES_Kill                 (IMAGES*, GLOBALS*);
+void        __cdecl     IMAGES_Zero                 (IMAGES*);
+IMAGES*     __cdecl     IMAGES_Create               (GLOBALS*);
+void        __cdecl     IMAGES_InitFromFile         (IMAGES*, HWND);
+void        __cdecl     IMAGES_Kill                 (IMAGES*, GLOBALS*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void        __cdecl  MESSAGE_Zero                (MESSAGE*);
-void        __cdecl  MESSAGE_Create              (char*, FPOINT, int, GLOBALS*);
-void        __cdecl  MESSAGE_DeleteSpecific      (MESSAGE*, GLOBALS*);
-void        __cdecl  MESSAGE_DeleteAll           (GLOBALS*);
+void        __cdecl     MESSAGE_Zero                (MESSAGE*);
+void        __cdecl     MESSAGE_Create              (char*, FPOINT, int, GLOBALS*);
+void        __cdecl     MESSAGE_DeleteSpecific      (MESSAGE*, GLOBALS*);
+void        __cdecl     MESSAGE_DeleteAll           (GLOBALS*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void        __cdecl  RENDER_Init                 (DBLBUF*);
-void        __cdecl  RENDER_ApplyTransform       (DBLBUF*, int, float, FPOINT);
-void        __cdecl  RENDER_ResetTransform       (DBLBUF*);
+void        __cdecl     RENDER_Init                 (DBLBUF*);
+void        __cdecl     RENDER_ApplyTransform       (DBLBUF*, int, float, FPOINT);
+void        __cdecl     RENDER_ResetTransform       (DBLBUF*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void        __cdecl  CARD_Zero                   (CARD*);
-CARD*       __cdecl  CARD_Create                 (GLOBALS*, IMAGES*);
-void        __cdecl  CARD_Kill                   (CARD*, GLOBALS*);
-void        __cdecl  CARD_EvaluateSelected       (CARD*, GLOBALS*, IMAGES*);
+void        __cdecl     CARD_Zero                   (CARD*);
+CARD*       __cdecl     CARD_Create                 (GLOBALS*, IMAGES*);
+void        __cdecl     CARD_Kill                   (CARD*, GLOBALS*);
+void        __cdecl     CARD_EvaluateSelected       (CARD*, GLOBALS*, IMAGES*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-INT_PTR     CALLBACK PROC_DlgLoad                (HWND, UINT, WPARAM, LPARAM);
-LRESULT     CALLBACK PROC_WindowProc             (HWND, UINT, WPARAM, LPARAM);
-void        __cdecl  PROC_BuildHelper            (int, GLOBALS*);
+INT_PTR     CALLBACK    PROC_DlgLoad                (HWND, UINT, WPARAM, LPARAM);
+LRESULT     CALLBACK    PROC_WindowProc             (HWND, UINT, WPARAM, LPARAM);
+void        __cdecl     PROC_BuildHelper            (int, MENU*);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void        __cdecl     MENU_Zero                   (MENU*);
+MENU*       __cdecl     MENU_Create                 (GLOBALS*);
+void        __cdecl     MENU_Init                   (MENU*);
+void        __cdecl     MENU_Kill                   (MENU*, GLOBALS*);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #endif
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

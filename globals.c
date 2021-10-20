@@ -12,6 +12,7 @@ GLOBALS* p_Globals;
 DBLBUF* p_DblBuf;
 IMAGES* p_Images;
 SETTINGS* p_Settings;
+MENU* p_Menu;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void __cdecl GLOBALS_Zero(GLOBALS* p_Globals) {
     ZeroMemory(p_Globals, sizeof(GLOBALS));
@@ -36,19 +37,10 @@ int __cdecl GLOBALS_Kill(GLOBALS* p_Globals) {
 // Settings that only need to be calculated once or I would like toggled on at run-time.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void __cdecl GLOBALS_Init(GLOBALS* p_Globals, HINSTANCE hInstance) {
-    (*p_Globals).bBegin = 1;
-    (*p_Globals).bDiagnostics = 1;
-    (*p_Globals).bEnableMasking = 1;
-    (*p_Globals).bDrawResources = 1;
-    (*p_Globals).bDrawStatuses = 1;
-    (*p_Globals).bDrawMinor = 1;
-    (*p_Globals).bDrawMajor = 1;
     (*p_Globals).iThreshold = 15;
     (*p_Globals).iMineralCount = 1000;
     (*p_Globals).iGasCount = 1500;
     (*p_Globals).iTotalSupply = 10;
-    (*p_Globals).bEnableTranslations = 0;
-    (*p_Globals).bTopmost = 0;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // The map that we are going to use that is shared among the terrain and minimap images.
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,14 +49,6 @@ void __cdecl GLOBALS_Init(GLOBALS* p_Globals, HINSTANCE hInstance) {
     // The modules instance needs to be captured incase resources are loaded directly from the executable.
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     (*p_Globals).hInstance = hInstance;
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_BEGIN, MF_CHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_DIAGNOSTICS, MF_CHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_MASKING, MF_CHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_RESOURCES, MF_CHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_STATUSES, MF_CHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_SHOW_MINOR, MF_CHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_SHOW_MAJOR, MF_CHECKED);
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Animation engine is based of the processing speed.
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

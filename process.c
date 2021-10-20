@@ -10,19 +10,19 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Main simulation processing. All operations are centralized in this one, timed, function.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl PROC_ProcessScene(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, CARD* p_Card) {
+void __cdecl PROC_ProcessScene(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, CARD* p_Card, MENU* p_Menu) {
     TIMEBASE* p_Timer = TIMEBASE_Create(0.0f, p_Globals);
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    PROC_ApplyTranslations(p_DblBuf, p_Globals, p_Images);
+    PROC_ApplyTranslations(p_DblBuf, p_Globals, p_Images, p_Menu);
     PROC_DrawBackground(p_DblBuf, p_Globals, p_Images);
     PROC_UpdateAnimation(p_Globals);
-    PROC_ProcessEntities(p_DblBuf, p_Globals, p_Images);
+    PROC_ProcessEntities(p_DblBuf, p_Globals, p_Images, p_Menu);
     PROC_DrawSelectionArea(p_DblBuf, p_Globals, RGB(0, 255, 0));
-    PROC_DrawBuildType(p_DblBuf, p_Globals, p_Images);
-    PROC_ProcessMessages(p_DblBuf, p_Globals, p_Images);
+    PROC_DrawBuildType(p_DblBuf, p_Globals, p_Images, p_Menu);
+    PROC_ProcessMessages(p_DblBuf, p_Globals, p_Images, p_Menu);
     CARD_EvaluateSelected(p_Card, p_Globals, p_Images);
-    PROC_DrawHUD(p_DblBuf, p_Globals, p_Images, p_Card);
-    PROC_DrawDiagnostics(p_DblBuf, p_Globals, p_Images);
+    PROC_DrawHUD(p_DblBuf, p_Globals, p_Images, p_Card, p_Menu);
+    PROC_DrawDiagnostics(p_DblBuf, p_Globals, p_Images, p_Menu);
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     DBLBUF_Flip(p_DblBuf);
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,8 +65,8 @@ void __cdecl PROC_DrawSelectionArea(DBLBUF* p_DblBuf, GLOBALS* p_Globals, COLORR
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // - Put frequently used variables that are accessed via dereferencing onto the stack.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl PROC_ApplyTranslations(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images) {
-    if((*p_Globals).bEnableTranslations) {
+void __cdecl PROC_ApplyTranslations(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, MENU* p_Menu) {
+    if((*p_Menu).bEnableTranslations) {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         float fAmount = 25.0f;
         float fLateralTranslation = 0.0f;
@@ -356,7 +356,7 @@ void __cdecl PROC_DrawBackground(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p
     DBLBUF_DrawPicture(p_DblBuf, &(*p_Images).Terrain[(*p_Globals).iMapIndex], 0);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl PROC_ProcessEntities(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images) {
+void __cdecl PROC_ProcessEntities(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, MENU* p_Menu) {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ENTITY* p_Current = (*p_Globals).p_RootEntity;
     while(p_Current) {
@@ -364,7 +364,7 @@ void __cdecl PROC_ProcessEntities(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         switch((*p_Current).iType) {
             case ENTITY_WORKER: {
-                if((*p_Globals).bBegin) {
+                if((*p_Menu).bBegin) {
                     if((*p_Current).p_Operating) {
                         AI_HandleWorkers(p_Current, p_Globals);
                     }
@@ -436,7 +436,7 @@ void __cdecl PROC_ProcessEntities(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
             (*p_Current).CenterPoint.fY <= (*p_DblBuf).ClientArea.bottom
         ) {
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if((*p_Globals).bDrawStatuses) {
+            if((*p_Menu).bDrawStatuses) {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 if((*p_Current).bIsPaused) {
                     DBLBUF_DrawEntityEllipse(p_DblBuf, p_Current, RGB(255, 255, 255), RGB(100, 0, 0));
@@ -461,11 +461,11 @@ void __cdecl PROC_ProcessEntities(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
                 DBLBUF_DrawEntityEllipse(p_DblBuf, p_Current, RGB(255, 255, 255), RGB(100, 0, 100));
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if((*p_Globals).bDrawMinor) {
+            if((*p_Menu).bDrawMinor) {
                 DBLBUF_DrawEntityMinorVector(p_DblBuf, p_Current, RGB(255, 127, 255));
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if((*p_Globals).bDrawMajor) {
+            if((*p_Menu).bDrawMajor) {
                 DBLBUF_DrawEntityMajorVector(p_DblBuf, p_Current, RGB(0, 255, 127));
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -475,7 +475,7 @@ void __cdecl PROC_ProcessEntities(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
                 DBLBUF_DrawEntityEllipse(p_DblBuf, p_Current, RGB(255, 255, 255), RGB(100, 100, 100));
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if((*p_Globals).bDrawResources) {
+            if((*p_Menu).bDrawResources) {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 // Pink font colour.
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -485,7 +485,7 @@ void __cdecl PROC_ProcessEntities(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
                     p_DblBuf,
                     (*p_DblBuf).szBlitter,
                     (FPOINT){(*p_Current).Location.fX, (*p_Current).Location.fY - 20.0f},
-                    (*p_Globals).bEnableMasking
+                    (*p_Menu).bEnableMasking
                 );
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -495,14 +495,14 @@ void __cdecl PROC_ProcessEntities(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
                 ENTITY_Animate(p_Current, p_Images);
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            DBLBUF_DrawEntity(p_DblBuf, p_Current, (*p_Globals).bEnableMasking);
+            DBLBUF_DrawEntity(p_DblBuf, p_Current, (*p_Menu).bEnableMasking);
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         p_Current = (ENTITY*)(*p_Current).p_Next;
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl PROC_ProcessMessages(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images) {
+void __cdecl PROC_ProcessMessages(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, MENU* p_Menu) {
     MESSAGE* p_Current = (*p_Globals).p_RootMessage;
     MESSAGE* p_Dead = NULL;
     while(p_Current) {
@@ -564,7 +564,7 @@ void __cdecl PROC_ProcessMessages(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
                 p_DblBuf,
                 (*p_Current).szMessage,
                 (FPOINT){(*p_Current).Location.fX, (*p_Current).Location.fY},
-                (*p_Globals).bEnableMasking
+                (*p_Menu).bEnableMasking
             );
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             RENDER_ResetTransform(p_DblBuf);
@@ -591,11 +591,11 @@ void __cdecl PROC_ProcessMessages(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images) {
+void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, MENU* p_Menu) {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     (*p_Globals).iFrameCount++;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if((*p_Globals).bDiagnostics) {
+    if((*p_Menu).bDiagnostics) {
         (*p_Globals).fClientBottomY = (*p_DblBuf).ClientArea.bottom;
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Pink font colour.
@@ -612,7 +612,7 @@ void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
             p_DblBuf,
             (*p_DblBuf).szBlitter,
             (FPOINT){15.0f, (*p_Globals).fClientBottomY},
-            (*p_Globals).bEnableMasking
+            (*p_Menu).bEnableMasking
         );
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         (*p_Globals).fClientBottomY -= 20.0f;
@@ -621,7 +621,7 @@ void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
             p_DblBuf,
             (*p_DblBuf).szBlitter,
             (FPOINT){15.0f, (*p_Globals).fClientBottomY},
-            (*p_Globals).bEnableMasking
+            (*p_Menu).bEnableMasking
         );
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         (*p_Globals).fClientBottomY -= 20.0f;
@@ -630,7 +630,7 @@ void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
             p_DblBuf,
             (*p_DblBuf).szBlitter,
             (FPOINT){15.0f, (*p_Globals).fClientBottomY},
-            (*p_Globals).bEnableMasking
+            (*p_Menu).bEnableMasking
         );
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         (*p_Globals).fClientBottomY -= 20.0f;
@@ -639,7 +639,7 @@ void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
             p_DblBuf,
             (*p_DblBuf).szBlitter,
             (FPOINT){15.0f, (*p_Globals).fClientBottomY},
-            (*p_Globals).bEnableMasking
+            (*p_Menu).bEnableMasking
         );
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         (*p_Globals).fClientBottomY -= 20.0f;
@@ -648,7 +648,7 @@ void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
             p_DblBuf,
             (*p_DblBuf).szBlitter,
             (FPOINT){15.0f, (*p_Globals).fClientBottomY},
-            (*p_Globals).bEnableMasking
+            (*p_Menu).bEnableMasking
         );
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         (*p_Globals).fClientBottomY -= 20.0f;
@@ -657,7 +657,7 @@ void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
             p_DblBuf,
             (*p_DblBuf).szBlitter,
             (FPOINT){15.0f, (*p_Globals).fClientBottomY},
-            (*p_Globals).bEnableMasking
+            (*p_Menu).bEnableMasking
         );
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         (*p_Globals).fClientBottomY -= 20.0f;
@@ -666,7 +666,7 @@ void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
             p_DblBuf,
             (*p_DblBuf).szBlitter,
             (FPOINT){15.0f, (*p_Globals).fClientBottomY},
-            (*p_Globals).bEnableMasking
+            (*p_Menu).bEnableMasking
         );
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         (*p_Globals).fClientBottomY -= 20.0f;
@@ -675,7 +675,7 @@ void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
             p_DblBuf,
             (*p_DblBuf).szBlitter,
             (FPOINT){15.0f, (*p_Globals).fClientBottomY},
-            (*p_Globals).bEnableMasking
+            (*p_Menu).bEnableMasking
         );
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         (*p_Globals).fClientBottomY -= 20.0f;
@@ -684,7 +684,7 @@ void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
             p_DblBuf,
             (*p_DblBuf).szBlitter,
             (FPOINT){15.0f, (*p_Globals).fClientBottomY},
-            (*p_Globals).bEnableMasking
+            (*p_Menu).bEnableMasking
         );
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // The counts have already been displayed and were accumulated through different functions. Reset them.
@@ -724,7 +724,7 @@ void __cdecl PROC_DrawDiagnostics(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl PROC_DrawResourceBar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images) {
+void __cdecl PROC_DrawResourceBar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, MENU* p_Menu) {
     (*p_Globals).fClientBottomY = (*p_DblBuf).ClientArea.bottom;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Resources background.
@@ -733,7 +733,7 @@ void __cdecl PROC_DrawResourceBar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
         p_DblBuf,
         &(*p_Images).HUD[0],
         (FPOINT){0.0f, (*p_Globals).fClientBottomY - (*p_Images).HUD[0].Bitmap.bmHeight},
-        (*p_Globals).bEnableMasking
+        (*p_Menu).bEnableMasking
     );
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Mineral picture.
@@ -742,7 +742,7 @@ void __cdecl PROC_DrawResourceBar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
         p_DblBuf,
         &(*p_Images).Mineral[0],
         (FPOINT){20.0f, (*p_Globals).fClientBottomY - 50.0f},
-        (*p_Globals).bEnableMasking
+        (*p_Menu).bEnableMasking
     );
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Mineral text with blue font colour.
@@ -753,7 +753,7 @@ void __cdecl PROC_DrawResourceBar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
         p_DblBuf,
         (*p_DblBuf).szBlitter,
         (FPOINT){60.0f, (*p_Globals).fClientBottomY - 40.0f},
-        (*p_Globals).bEnableMasking
+        (*p_Menu).bEnableMasking
     );
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Gas picture.
@@ -762,7 +762,7 @@ void __cdecl PROC_DrawResourceBar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
         p_DblBuf,
         &(*p_Images).Gas[0],
         (FPOINT){135.0f, (*p_Globals).fClientBottomY - 50.0f},
-        (*p_Globals).bEnableMasking
+        (*p_Menu).bEnableMasking
     );
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Gas text with green font colour.
@@ -772,7 +772,7 @@ void __cdecl PROC_DrawResourceBar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
     DBLBUF_Blitter(
         p_DblBuf,
         (*p_DblBuf).szBlitter, (FPOINT){175.0f, (*p_Globals).fClientBottomY - 40.0f},
-        (*p_Globals).bEnableMasking
+        (*p_Menu).bEnableMasking
     );
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Supply picture.
@@ -781,7 +781,7 @@ void __cdecl PROC_DrawResourceBar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
         p_DblBuf,
         &(*p_Images).Worker[0],
         (FPOINT){250.0f, (*p_Globals).fClientBottomY - 43.0f},
-        (*p_Globals).bEnableMasking
+        (*p_Menu).bEnableMasking
     );
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Supply text with yellow font colour.
@@ -796,11 +796,11 @@ void __cdecl PROC_DrawResourceBar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* 
         p_DblBuf,
         (*p_DblBuf).szBlitter,
         (FPOINT){280.0f, (*p_Globals).fClientBottomY - 40.0f},
-        (*p_Globals).bEnableMasking
+        (*p_Menu).bEnableMasking
     );
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl PROC_DrawTaskbar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, CARD* p_Card) {
+void __cdecl PROC_DrawTaskbar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, CARD* p_Card, MENU* p_Menu) {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Taskbar background.
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -811,7 +811,7 @@ void __cdecl PROC_DrawTaskbar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Im
             (*p_DblBuf).ClientArea.right - (*p_Images).HUD[1].Bitmap.bmWidth - (*p_Images).HUD[1].Bitmap.bmWidth,
             (*p_DblBuf).ClientArea.bottom - (*p_Images).HUD[1].Bitmap.bmHeight
         },
-        (*p_Globals).bEnableMasking
+        (*p_Menu).bEnableMasking
     );
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Command card.
@@ -823,7 +823,7 @@ void __cdecl PROC_DrawTaskbar(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Im
             (*p_DblBuf).ClientArea.right - (*p_Images).HUD[1].Bitmap.bmWidth - (*p_Images).HUD[1].Bitmap.bmWidth + 15.0f,
             (*p_DblBuf).ClientArea.bottom - (*p_Images).HUD[1].Bitmap.bmHeight + 15.0f
         },
-        (*p_Globals).bEnableMasking
+        (*p_Menu).bEnableMasking
     );
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1019,9 +1019,9 @@ void __cdecl PROC_DrawMinimap(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Im
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl PROC_DrawHUD(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, CARD* p_Card) {
-    PROC_DrawResourceBar(p_DblBuf, p_Globals, p_Images);
-    PROC_DrawTaskbar(p_DblBuf, p_Globals, p_Images, p_Card);
+void __cdecl PROC_DrawHUD(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, CARD* p_Card, MENU* p_Menu) {
+    PROC_DrawResourceBar(p_DblBuf, p_Globals, p_Images, p_Menu);
+    PROC_DrawTaskbar(p_DblBuf, p_Globals, p_Images, p_Card, p_Menu);
     PROC_DrawMinimap(p_DblBuf, p_Globals, p_Images);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1051,7 +1051,7 @@ void __cdecl PROC_DrawBuildLimits(DBLBUF* p_DblBuf, ENTITY* p_Entity, IMAGES* p_
     DeleteObject(hPen);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl PROC_DrawBuildType(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images) {
+void __cdecl PROC_DrawBuildType(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_Images, MENU* p_Menu) {
     if((*p_Globals).bCreate) {
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Draw the red barriers that display the build limits for all entities.
@@ -1075,7 +1075,7 @@ void __cdecl PROC_DrawBuildType(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_
                 Delta.fX = (*p_Images).Command[0].Bitmap.bmWidth;
                 Delta.fY = (*p_Images).Command[0].Bitmap.bmHeight;
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                DBLBUF_DrawPictureAt(p_DblBuf, &(*p_Images).Command[0], Location, (*p_Globals).bEnableMasking);
+                DBLBUF_DrawPictureAt(p_DblBuf, &(*p_Images).Command[0], Location, (*p_Menu).bEnableMasking);
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 break;
             }
@@ -1085,7 +1085,7 @@ void __cdecl PROC_DrawBuildType(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_
                 Delta.fX = (*p_Images).Worker[0].Bitmap.bmWidth;
                 Delta.fY = (*p_Images).Worker[0].Bitmap.bmHeight;
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                DBLBUF_DrawPictureAt(p_DblBuf, &(*p_Images).Worker[0], Location, (*p_Globals).bEnableMasking);
+                DBLBUF_DrawPictureAt(p_DblBuf, &(*p_Images).Worker[0], Location, (*p_Menu).bEnableMasking);
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 break;
             }
@@ -1095,7 +1095,7 @@ void __cdecl PROC_DrawBuildType(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_
                 Delta.fX = (*p_Images).Mineral[0].Bitmap.bmWidth;
                 Delta.fY = (*p_Images).Mineral[0].Bitmap.bmHeight;
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                DBLBUF_DrawPictureAt(p_DblBuf, &(*p_Images).Mineral[0], Location, (*p_Globals).bEnableMasking);
+                DBLBUF_DrawPictureAt(p_DblBuf, &(*p_Images).Mineral[0], Location, (*p_Menu).bEnableMasking);
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 break;
             }
@@ -1105,7 +1105,7 @@ void __cdecl PROC_DrawBuildType(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_
                 Delta.fX = (*p_Images).Supply[0].Bitmap.bmWidth;
                 Delta.fY = (*p_Images).Supply[0].Bitmap.bmHeight;
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                DBLBUF_DrawPictureAt(p_DblBuf, &(*p_Images).Supply[0], Location, (*p_Globals).bEnableMasking);
+                DBLBUF_DrawPictureAt(p_DblBuf, &(*p_Images).Supply[0], Location, (*p_Menu).bEnableMasking);
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 break;
             }
@@ -1115,7 +1115,7 @@ void __cdecl PROC_DrawBuildType(DBLBUF* p_DblBuf, GLOBALS* p_Globals, IMAGES* p_
                 Delta.fX = (*p_Images).Refinery[0].Bitmap.bmWidth;
                 Delta.fY = (*p_Images).Refinery[0].Bitmap.bmHeight;
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                DBLBUF_DrawPictureAt(p_DblBuf, &(*p_Images).Refinery[0], Location, (*p_Globals).bEnableMasking);
+                DBLBUF_DrawPictureAt(p_DblBuf, &(*p_Images).Refinery[0], Location, (*p_Menu).bEnableMasking);
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 break;
             }

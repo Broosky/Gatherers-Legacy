@@ -19,6 +19,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     p_Globals = (GLOBALS*)GLOBALS_Create();
     p_Settings = (SETTINGS*)SETTINGS_Create(p_Globals);
     p_Images = (IMAGES*)IMAGES_Create(p_Globals);
+    p_Menu = (MENU*)MENU_Create(p_Globals);
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     SetConsoleTitle(APP_NAME);
     srand(GetTickCount());
@@ -42,9 +43,10 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     DialogBoxParam(hInstance, MAKEINTRESOURCE(DLG_LOAD), NULL, PROC_DlgLoad, (LPARAM)WndClassEx.hIcon);
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    (*p_Globals).hMenu = LoadMenu(hInstance, MAKEINTRESOURCE(MAIN_MENU));
+    (*p_Menu).hMenu = LoadMenu(hInstance, MAKEINTRESOURCE(MAIN_MENU));
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     GLOBALS_Init(p_Globals, hInstance);
+    MENU_Init(p_Menu);
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     HWND hWnd = CreateWindowEx(
         0,
@@ -56,7 +58,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         600,
         400,
         NULL,
-        (*p_Globals).hMenu,
+        (*p_Menu).hMenu,
         hInstance,
         NULL
     );
@@ -92,8 +94,9 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
                 TIMEBASE_Kill(p_ProcessAverage, p_Globals);
                 CARD_Kill(p_Card, p_Globals);
                 SETTINGS_Kill(p_Settings, p_Globals);
+                MENU_Kill(p_Menu, p_Globals);
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                DestroyMenu((*p_Globals).hMenu);
+                DestroyMenu((*p_Menu).hMenu);
                 DestroyWindow(hWnd);
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 int iRemainingHeap = GLOBALS_Kill(p_Globals);
@@ -116,7 +119,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         else {
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if(TIMEBASE_Tick(p_Process)) {
-                PROC_ProcessScene(p_DblBuf, p_Globals, p_Images, p_Card);
+                PROC_ProcessScene(p_DblBuf, p_Globals, p_Images, p_Card, p_Menu);
             }
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if(TIMEBASE_Tick(p_ProcessAverage)) {

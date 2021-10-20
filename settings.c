@@ -22,7 +22,6 @@ SETTINGS* __cdecl SETTINGS_Create(GLOBALS* p_Globals) {
 }
 void __cdecl SETTINGS_InitFromFile(SETTINGS* p_Settings)
 {
-
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void __cdecl SETTINGS_Kill(SETTINGS* p_Settings, GLOBALS* p_Globals) {

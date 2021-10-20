@@ -12,42 +12,42 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // - Put the menu handle into a stack variable because we use it many times.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void __cdecl PROC_BuildHelper(int iType, GLOBALS* p_Globals) {
+void __cdecl PROC_BuildHelper(int iType, MENU* p_Menu) {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Uncheck all of the menu items
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_NONE, MF_UNCHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_WORKER, MF_UNCHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_COMMAND, MF_UNCHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_MINERAL, MF_UNCHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_SUPPLY, MF_UNCHECKED);
-    CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_REFINERY, MF_UNCHECKED);
+    CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_NONE, MF_UNCHECKED);
+    CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_WORKER, MF_UNCHECKED);
+    CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_COMMAND, MF_UNCHECKED);
+    CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_MINERAL, MF_UNCHECKED);
+    CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_SUPPLY, MF_UNCHECKED);
+    CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_REFINERY, MF_UNCHECKED);
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Check the one we want.
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     switch(iType) {
         case ENTITY_WORKER: {
-            CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_WORKER, MF_CHECKED);
+            CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_WORKER, MF_CHECKED);
             break;
         }
         case ENTITY_COMMAND: {
-            CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_COMMAND, MF_CHECKED);
+            CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_COMMAND, MF_CHECKED);
             break;
         }
         case ENTITY_MINERAL: {
-            CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_MINERAL, MF_CHECKED);
+            CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_MINERAL, MF_CHECKED);
             break;
         }
         case ENTITY_SUPPLY: {
-            CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_SUPPLY, MF_CHECKED);
+            CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_SUPPLY, MF_CHECKED);
             break;
         }
         case ENTITY_REFINERY: {
-            CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_REFINERY, MF_CHECKED);
+            CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_REFINERY, MF_CHECKED);
             break;
         }
         default: {
-            CheckMenuItem((*p_Globals).hMenu, MENU_BUILD_NONE, MF_CHECKED);
+            CheckMenuItem((*p_Menu).hMenu, MENU_BUILD_NONE, MF_CHECKED);
         }
     }
 }
@@ -109,51 +109,51 @@ LRESULT CALLBACK PROC_WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
                 }
                 case MENU_BUILD_NONE: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    PROC_BuildHelper(ENTITY_NONE, p_Globals);
+                    PROC_BuildHelper(ENTITY_NONE, p_Menu);
                     (*p_Globals).iBuildType = ENTITY_WORKER;
                     (*p_Globals).bCreate = 0;
                     break;
                 }
                 case MENU_BUILD_WORKER: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    PROC_BuildHelper(ENTITY_WORKER, p_Globals);
+                    PROC_BuildHelper(ENTITY_WORKER, p_Menu);
                     (*p_Globals).iBuildType = ENTITY_WORKER;
                     (*p_Globals).bCreate = 1;
                     break;
                 }
                 case MENU_BUILD_COMMAND: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    PROC_BuildHelper(ENTITY_COMMAND, p_Globals);
+                    PROC_BuildHelper(ENTITY_COMMAND, p_Menu);
                     (*p_Globals).iBuildType = ENTITY_COMMAND;
                     (*p_Globals).bCreate = 1;
                     break;
                 }
                 case MENU_BUILD_MINERAL: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    PROC_BuildHelper(ENTITY_MINERAL, p_Globals);
+                    PROC_BuildHelper(ENTITY_MINERAL, p_Menu);
                     (*p_Globals).iBuildType = ENTITY_MINERAL;
                     (*p_Globals).bCreate = 1;
                     break;
                 }
                 case MENU_BUILD_SUPPLY: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    PROC_BuildHelper(ENTITY_SUPPLY, p_Globals);
+                    PROC_BuildHelper(ENTITY_SUPPLY, p_Menu);
                     (*p_Globals).iBuildType = ENTITY_SUPPLY;
                     (*p_Globals).bCreate = 1;
                     break;
                 }
                 case MENU_BUILD_REFINERY: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    PROC_BuildHelper(ENTITY_REFINERY, p_Globals);
+                    PROC_BuildHelper(ENTITY_REFINERY, p_Menu);
                     (*p_Globals).iBuildType = ENTITY_REFINERY;
                     (*p_Globals).bCreate = 1;
                     break;
                 }
                 case MENU_OPTIONS_BEGIN: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if((*p_Globals).bBegin) {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_BEGIN, MF_UNCHECKED);
-                        (*p_Globals).bBegin = !(*p_Globals).bBegin;
+                    if((*p_Menu).bBegin) {
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_BEGIN, MF_UNCHECKED);
+                        (*p_Menu).bBegin = !(*p_Menu).bBegin;
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
                         // Stop each entity that was moving.
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,72 +164,72 @@ LRESULT CALLBACK PROC_WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
                         }
                     }
                     else {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_BEGIN, MF_CHECKED);
-                        (*p_Globals).bBegin = !(*p_Globals).bBegin;
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_BEGIN, MF_CHECKED);
+                        (*p_Menu).bBegin = !(*p_Menu).bBegin;
                     }
                     break;
                 }
                 case MENU_OPTIONS_DIAGNOSTICS: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if((*p_Globals).bDiagnostics) {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_DIAGNOSTICS, MF_UNCHECKED);
-                        (*p_Globals).bDiagnostics = !(*p_Globals).bDiagnostics;
+                    if((*p_Menu).bDiagnostics) {
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_DIAGNOSTICS, MF_UNCHECKED);
+                        (*p_Menu).bDiagnostics = !(*p_Menu).bDiagnostics;
                     }
                     else {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_DIAGNOSTICS, MF_CHECKED);
-                        (*p_Globals).bDiagnostics = !(*p_Globals).bDiagnostics;
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_DIAGNOSTICS, MF_CHECKED);
+                        (*p_Menu).bDiagnostics = !(*p_Menu).bDiagnostics;
                     }
                     break;
                 }
                 case MENU_OPTIONS_MASKING: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if((*p_Globals).bEnableMasking) {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_MASKING, MF_UNCHECKED);
-                        (*p_Globals).bEnableMasking = !(*p_Globals).bEnableMasking;
+                    if((*p_Menu).bEnableMasking) {
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_MASKING, MF_UNCHECKED);
+                        (*p_Menu).bEnableMasking = !(*p_Menu).bEnableMasking;
                     }
                     else {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_MASKING, MF_CHECKED);
-                        (*p_Globals).bEnableMasking = !(*p_Globals).bEnableMasking;
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_MASKING, MF_CHECKED);
+                        (*p_Menu).bEnableMasking = !(*p_Menu).bEnableMasking;
                     }
                     break;
                 }
                 case MENU_OPTIONS_RESOURCES: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if((*p_Globals).bDrawResources) {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_RESOURCES, MF_UNCHECKED);
-                        (*p_Globals).bDrawResources = !(*p_Globals).bDrawResources;
+                    if((*p_Menu).bDrawResources) {
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_RESOURCES, MF_UNCHECKED);
+                        (*p_Menu).bDrawResources = !(*p_Menu).bDrawResources;
                     }
                     else {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_RESOURCES, MF_CHECKED);
-                        (*p_Globals).bDrawResources = !(*p_Globals).bDrawResources;
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_RESOURCES, MF_CHECKED);
+                        (*p_Menu).bDrawResources = !(*p_Menu).bDrawResources;
                     }
                     break;
                 }
                 case MENU_OPTIONS_ENABLE_TRANSLATIONS: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if((*p_Globals).bEnableTranslations) {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_ENABLE_TRANSLATIONS, MF_UNCHECKED);
-                        (*p_Globals).bEnableTranslations = !(*p_Globals).bEnableTranslations;
+                    if((*p_Menu).bEnableTranslations) {
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_ENABLE_TRANSLATIONS, MF_UNCHECKED);
+                        (*p_Menu).bEnableTranslations = !(*p_Menu).bEnableTranslations;
                     }
                     else {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_ENABLE_TRANSLATIONS, MF_CHECKED);
-                        (*p_Globals).bEnableTranslations = !(*p_Globals).bEnableTranslations;
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_ENABLE_TRANSLATIONS, MF_CHECKED);
+                        (*p_Menu).bEnableTranslations = !(*p_Menu).bEnableTranslations;
                     }
                     break;
                 }       
                 case MENU_OPTIONS_TOPMOST: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if((*p_Globals).bTopmost) {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_TOPMOST, MF_UNCHECKED);
-                        (*p_Globals).bTopmost = !(*p_Globals).bTopmost;
+                    if((*p_Menu).bTopmost) {
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_TOPMOST, MF_UNCHECKED);
+                        (*p_Menu).bTopmost = !(*p_Menu).bTopmost;
                         SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0,  SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
                         //LONG_PTR dwExStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
                         //dwExStyle &= ~WS_EX_TOPMOST;
                         //SetWindowLongPtr(hWnd, GWL_EXSTYLE, dwExStyle);
                     }
                     else {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_TOPMOST, MF_CHECKED);
-                        (*p_Globals).bTopmost = !(*p_Globals).bTopmost;
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_TOPMOST, MF_CHECKED);
+                        (*p_Menu).bTopmost = !(*p_Menu).bTopmost;
                         SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0,  SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
                         //LONG_PTR dwExStyle = GetWindowLongPtr(hWnd, GWL_EXSTYLE);
                         //dwExStyle = WS_EX_TOPMOST;
@@ -239,9 +239,9 @@ LRESULT CALLBACK PROC_WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
                 }
                 case MENU_OPTIONS_FULLSCREEN: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if((*p_Globals).bFullScreen) {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_FULLSCREEN, MF_UNCHECKED);
-                        (*p_Globals).bFullScreen = !(*p_Globals).bFullScreen;
+                    if((*p_Menu).bFullScreen) {
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_FULLSCREEN, MF_UNCHECKED);
+                        (*p_Menu).bFullScreen = !(*p_Menu).bFullScreen;
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
                         // Change double buffer settings.
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -255,8 +255,8 @@ LRESULT CALLBACK PROC_WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
                         RENDER_Init(p_DblBuf);
                     }
                     else {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_FULLSCREEN, MF_CHECKED);
-                        (*p_Globals).bFullScreen = !(*p_Globals).bFullScreen;
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_FULLSCREEN, MF_CHECKED);
+                        (*p_Menu).bFullScreen = !(*p_Menu).bFullScreen;
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
                         // Change double buffer settings.
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -275,37 +275,37 @@ LRESULT CALLBACK PROC_WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
                 }
                 case MENU_OPTIONS_STATUSES: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if((*p_Globals).bDrawStatuses) {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_STATUSES, MF_UNCHECKED);
-                        (*p_Globals).bDrawStatuses = !(*p_Globals).bDrawStatuses;
+                    if((*p_Menu).bDrawStatuses) {
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_STATUSES, MF_UNCHECKED);
+                        (*p_Menu).bDrawStatuses = !(*p_Menu).bDrawStatuses;
                     }
                     else {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_STATUSES, MF_CHECKED);
-                        (*p_Globals).bDrawStatuses = !(*p_Globals).bDrawStatuses;
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_STATUSES, MF_CHECKED);
+                        (*p_Menu).bDrawStatuses = !(*p_Menu).bDrawStatuses;
                     }
                     break;
                 }
                 case MENU_OPTIONS_SHOW_MINOR: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if((*p_Globals).bDrawMinor) {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_SHOW_MINOR, MF_UNCHECKED);
-                        (*p_Globals).bDrawMinor = !(*p_Globals).bDrawMinor;
+                    if((*p_Menu).bDrawMinor) {
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_SHOW_MINOR, MF_UNCHECKED);
+                        (*p_Menu).bDrawMinor = !(*p_Menu).bDrawMinor;
                     }
                     else {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_SHOW_MINOR, MF_CHECKED);
-                        (*p_Globals).bDrawMinor = !(*p_Globals).bDrawMinor;
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_SHOW_MINOR, MF_CHECKED);
+                        (*p_Menu).bDrawMinor = !(*p_Menu).bDrawMinor;
                     }
                     break;
                 }
                 case MENU_OPTIONS_SHOW_MAJOR: {
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    if((*p_Globals).bDrawMajor) {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_SHOW_MAJOR, MF_UNCHECKED);
-                        (*p_Globals).bDrawMajor = !(*p_Globals).bDrawMajor;
+                    if((*p_Menu).bDrawMajor) {
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_SHOW_MAJOR, MF_UNCHECKED);
+                        (*p_Menu).bDrawMajor = !(*p_Menu).bDrawMajor;
                     }
                     else {
-                        CheckMenuItem((*p_Globals).hMenu, MENU_OPTIONS_SHOW_MAJOR, MF_CHECKED);
-                        (*p_Globals).bDrawMajor = !(*p_Globals).bDrawMajor;
+                        CheckMenuItem((*p_Menu).hMenu, MENU_OPTIONS_SHOW_MAJOR, MF_CHECKED);
+                        (*p_Menu).bDrawMajor = !(*p_Menu).bDrawMajor;
                     }
                     break;
                 }
