@@ -19,3 +19,7 @@ Compile w/x86_64-w64-mingw32-xxx toolchain and launch over Wine64.
 Windows:
 
 Install MSYS2 to C.
+
+In Action:
+
+![Demo](Gatherers.gif)
