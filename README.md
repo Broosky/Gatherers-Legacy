@@ -48,7 +48,7 @@ This repository has been renamed **Gatherers-Historic** to preserve its sentimen
 
 ---
 
-## ⚙🔹 **Ubuntu Instructions**
+## 🔹 **Ubuntu Instructions**
 
 To build the project on Ubuntu, you'll need to install the MinGW cross-compiler, Visual Studio Code, and Wine to run Windows executables on Linux. Then, compile with either the **i686-w64-mingw32** or **x86_64-w64-mingw32 toolchains**, and run the executable via **Wine**.
 
