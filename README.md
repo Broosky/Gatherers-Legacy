@@ -12,16 +12,16 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
 
 ---
 
-## 🧠 **Key Features**
+## 🔹 **Key Features**
 
 - **Time-based Update Loop**  
-  Smooth and consistent unit behavior across systems, using a time-delta (tick-based) update approach.
+  Smooth and consistent behavior across systems, using a time-delta (tick-based) update approach.
 
 - **Custom Engine with Animation Support**  
   Built from scratch to manage entity states, movement, rendering, and basic AI — with sprite animations and fluid state transitions.
 
 - **Classic Blending with Bitmap Masks**  
-  Implements retro-style transparency using manually crafted bitmap masks for a nostalgic, software-rendered look.
+  Implements retro-style transparency using manually crafted bitmap masks for a software-rendered look.
 
 - **State-based AI System**  
   Workers transition between states like *seeking*, *gathering*, and *returning*, emulating early RTS gatherer logic.
@@ -30,7 +30,7 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
   Uses line-of-sight raycasting to determine clear paths, skipping obstacles when possible.
 
 - **Map Scrolling**  
-  Supports camera panning to follow the action across larger maps — just like classic RTS titles.
+  Supports camera panning to utilize the entire map.
 
 - **Minimap Display**  
   A compact overview of the world space, showing unit positions and resource locations at a glance.
@@ -40,7 +40,7 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
 
 ---
 
-## 🧩 **A Bit of History**
+## 🔹 **A Bit of History**
 
 Built with a barebones IDE and barely any debugging tools, the project ran mostly on caffeine and sheer determination. After a few proof-of-concept trials in C++ ([Workers](https://github.com/Broosky/Workers)), I decided to write it in pure C. Though this version isn't fully optimized, it holds a special place in my development journey.
 
@@ -48,12 +48,12 @@ This repository has been renamed **Gatherers-Historic** to preserve its sentimen
 
 ---
 
-## ⚙️ **Ubuntu Instructions**
+## ⚙🔹 **Ubuntu Instructions**
 
 To build the project on Ubuntu, you'll need to install the MinGW cross-compiler, Visual Studio Code, and Wine to run Windows executables on Linux. Then, compile with either the **i686-w64-mingw32** or **x86_64-w64-mingw32 toolchains**, and run the executable via **Wine**.
 
 ---
 
-## 💻 **Windows Instructions**
+## 🔹 **Windows Instructions**
 
 Install **MSYS2** on your C drive (following the [official guide](https://www.msys2.org/)), and then follow the steps for compiling with MinGW from the MSYS2 terminal, or use the Visual Studio Code toolchains.
