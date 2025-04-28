@@ -1,4 +1,4 @@
-# 🛠️ **Gatherers-Historic**
+# 💡 **Gatherers-Historic**
 
 This project, started and largely completed during my reading week near the end of 2010, was born out of my passion for video games — especially the resource gathering mechanic of *StarCraft*. So, I built my own version of it.
 
@@ -6,7 +6,7 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
 
 ---
 
-## 🎥 **In Action**
+## 🔹 **In Action**
 
 ![Demo](Gatherers.gif)
 
