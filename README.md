@@ -1,4 +1,4 @@
-# 💡 **Gatherers-Historic**
+# 💡 **Gatherers-Legacy**
 
 This project, started and largely completed during my reading week near the end of 2010, was born out of my passion for video games — especially the resource gathering mechanic of *StarCraft*. So, I built my own version of it.
 
@@ -44,7 +44,7 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
 
 Built with a barebones IDE and barely any debugging tools, the project ran mostly on caffeine and sheer determination. After a few proof-of-concept trials in C++ ([Workers](https://github.com/Broosky/Workers)), I decided to write it in pure C. Though this version isn't fully optimized, it holds a special place in my development journey.
 
-This repository has been renamed **Gatherers-Historic** to preserve its sentimental value. A new repo, [Gatherers](https://github.com/Broosky/Gatherers), will supersede it — and I'll continue to improve it when time allows.
+This repository has been renamed **Gatherers-Legacy** to preserve its sentimental value. A new repo, [Gatherers](https://github.com/Broosky/Gatherers), will supersede it — and I'll continue to improve it when time allows.
 
 ---
 
