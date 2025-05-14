@@ -1,6 +1,6 @@
 # 💡 **Gatherers-Legacy**
 
-This project, started and largely completed during my reading week near the end of 2010, was born out of my passion for video games — especially the resource gathering mechanic of *StarCraft*. So, I built my own version of it.
+This project, started and largely completed during my school reading week near the end of 2010, was born out of my passion for video games — especially the resource gathering mechanic of *StarCraft*. So, I built my own version of it.
 
 Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW compiler, I've since ported it to run with VS Code and the C/C++ extensions. It still runs smoothly, even on modern versions of Windows and Ubuntu (Wine).
 
