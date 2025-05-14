@@ -2,7 +2,7 @@
 
 This project, started and largely completed during my reading week near the end of 2010, was born out of my passion for video games — especially the resource gathering mechanic of *StarCraft*. So, I built my own version of it.
 
-Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW compiler, I've since ported it to run with VS Code and the C/C++ extensions. It still runs smoothly, even on modern versions of Windows and Ubuntu (tested).
+Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW compiler, I've since ported it to run with VS Code and the C/C++ extensions. It still runs smoothly, even on modern versions of Windows and Ubuntu (Wine).
 
 ---
 
@@ -18,10 +18,10 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
   Smooth and consistent behavior across systems, using a time-delta (tick-based) update approach.
 
 - **Custom Engine with Animation Support**  
-  Built from scratch to manage entity states, movement, rendering, and basic AI — with sprite animations and fluid state transitions.
+  Built from scratch to manage entity states, movement, rendering, and basic AI, with sprite animations and fluid state transitions.
 
 - **Classic Blending with Bitmap Masks**  
-  Implements retro-style transparency using manually crafted bitmap masks for a software-rendered look.
+  Implements retro-style transparency using manually crafted bitmap masks for a rasterized software-rendered look.
 
 - **State-based AI System**  
   Workers transition between states like *seeking*, *gathering*, and *returning*, emulating early RTS gatherer logic.
@@ -33,7 +33,7 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
   Supports camera panning to utilize the entire map.
 
 - **Minimap Display**  
-  A compact overview of the world space, showing unit positions and resource locations at a glance.
+  A compact overview of the world space, showing unit positions, buildings, and resource locations at a glance.
 
 - **Text Blittering System**  
   Custom-built text renderer using bitmap fonts, used for in-game UI and overlays.
