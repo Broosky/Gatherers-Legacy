@@ -1,16 +1,15 @@
 # 💡 **Gatherers-Legacy**
 
-This project, started and largely completed during my school reading week near the end of 2010, was born out of my passion for video games — especially the resource gathering mechanic of *StarCraft*. So, I built my own version of it.
+This project, started and largely completed during my school reading week near the end of 2010, was born out of my passion for video games, especially the resource gathering mechanic of *StarCraft*. So, I built my own version of it.
 
 Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW compiler, I've since ported it to run with VS Code and the C/C++ extensions. It still runs smoothly, even on modern versions of Windows and Ubuntu (Wine).
 
----
+> If you found this project useful, interesting, or worth keeping an eye on, consider giving it a ⭐️.
+> It helps others discover the project and motivates me to keep building and sharing more.
 
 ## 🔹 **In Action**
 
 ![Demo](Gatherers.gif)
-
----
 
 ## 🔹 **Key Features**
 
@@ -37,24 +36,18 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
 
 - **Text Blittering System**  
   Custom-built text renderer using bitmap fonts, used for in-game UI and overlays.
-
----
-
+  
 ## 🔹 **A Bit of History**
 
 Built with a barebones IDE and barely any debugging tools, the project ran mostly on caffeine and sheer determination. After a few proof-of-concept trials in C++ ([Workers](https://github.com/Broosky/Workers)), I decided to write it in pure C. Though this version isn't fully optimized, it holds a special place in my development journey.
 
 I didn't have source control at the time, so I took snapshots of the repository (directory) at certain milestones. Hence, the V10.0 ☺️
 
-This repository has been renamed **Gatherers-Legacy** to preserve its sentimental value. A new repo, [Gatherers](https://github.com/Broosky/Gatherers), will supersede it — and I'll continue to improve it when time allows.
-
----
+This repository has been renamed **Gatherers-Legacy** to preserve its sentimental value. A new repo, [Gatherers](https://github.com/Broosky/Gatherers), will supersede it, which I'll continue to improve it when time allows.
 
 ## 🔹 **Ubuntu Instructions**
 
 To build the project on Ubuntu, you'll need to install the MinGW cross-compiler, Visual Studio Code, and Wine to run Windows executables on Linux. Then, compile with either the **i686-w64-mingw32** or **x86_64-w64-mingw32 toolchains**, and run the executable via **Wine**.
-
----
 
 ## 🔹 **Windows Instructions**
 
