@@ -1,54 +1,60 @@
-# 💡 **Gatherers-Legacy**
+# 💡 Gatherers-Legacy
 
-This project, started and largely completed during my school reading week near the end of 2010, was born out of my passion for video games, especially the resource gathering mechanic of *StarCraft*. So, I built my own version of it.
+This project, started and largely completed during my school reading week near the end of 2010, was born out of my passion for video games, especially the resource gathering mechanic of StarCraft. So, I built my own version of it.
 
 Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW compiler, I've since ported it to run with VS Code and the C/C++ extensions. It still runs smoothly, even on modern versions of Windows and Ubuntu (Wine).
 
 > If you found this project useful, interesting, or worth keeping an eye on, consider giving it a ⭐️.
 > It helps others discover the project and motivates me to keep building and sharing more.
 
-## 🔹 **In Action**
+## 🔹 In Action
 
 ![Demo](Gatherers.gif)
 
-## 🔹 **Key Features**
+## 🔹 Key Features
 
-- **Time-based Update Loop**  
+- Time-based Update Loop  
   Smooth and consistent behavior across systems, using a time-delta (tick-based) update approach.
 
-- **Custom Engine with Animation Support**  
+- Custom Engine with Animation Support  
   Built from scratch to manage entity states, movement, rendering, and basic AI, with sprite animations and fluid state transitions.
 
-- **Classic Blending with Bitmap Masks**  
+- Classic Blending with Bitmap Masks  
   Implements retro-style transparency using manually crafted bitmap masks for a rasterized software-rendered look.
 
-- **State-based AI System**  
-  Workers transition between states like *seeking*, *gathering*, and *returning*, emulating early RTS gatherer logic.
+- State-based AI System  
+  Workers transition between states like seeking, gathering, and returning, emulating early RTS gatherer logic.
 
-- **Old-school Raycast Pathfinding**  
+- Old-school Raycast Pathfinding  
   Uses line-of-sight raycasting to determine clear paths, skipping obstacles when possible.
 
-- **Map Scrolling**  
+- Map Scrolling  
   Supports camera panning to utilize the entire map.
 
-- **Minimap Display**  
+- Minimap Display  
   A compact overview of the world space, showing unit positions, buildings, and resource locations at a glance.
 
-- **Text Blittering System**  
+- Text Blittering System  
   Custom-built text renderer using bitmap fonts, used for in-game UI and overlays.
   
-## 🔹 **A Bit of History**
+## 🔹 A Bit of History
 
 Built with a barebones IDE and barely any debugging tools, the project ran mostly on caffeine and sheer determination. After a few proof-of-concept trials in C++ ([Workers](https://github.com/Broosky/Workers)), I decided to write it in pure C. Though this version isn't fully optimized, it holds a special place in my development journey.
 
 I didn't have source control at the time, so I took snapshots of the repository (directory) at certain milestones. Hence, the V10.0 ☺️
 
-This repository has been renamed **Gatherers-Legacy** to preserve its sentimental value. A new repo, [Gatherers](https://github.com/Broosky/Gatherers), will supersede it, which I'll continue to improve it when time allows.
+This repository has been renamed Gatherers-Legacy to preserve its sentimental value. A new repo, [Gatherers](https://github.com/Broosky/Gatherers), will supersede it, which I'll continue to improve it when time allows.
 
-## 🔹 **Ubuntu Instructions**
+## 🔹 Ubuntu Instructions
 
-To build the project on Ubuntu, you'll need to install the MinGW cross-compiler, Visual Studio Code, and Wine to run Windows executables on Linux. Then, compile with either the **i686-w64-mingw32** or **x86_64-w64-mingw32 toolchains**, and run the executable via **Wine**.
+To build the project on Ubuntu, you'll need to install the MinGW cross-compiler, Visual Studio Code, and Wine to run Windows executables on Linux. Then, compile with either the i686-w64-mingw32 or x86_64-w64-mingw32 toolchains, and run the executable via Wine.
 
-## 🔹 **Windows Instructions**
+## 🔹 Windows Instructions
 
-Install **MSYS2** on your C drive (following the [official guide](https://www.msys2.org/)), and then follow the steps for compiling with MinGW from the MSYS2 terminal, or use the Visual Studio Code toolchains.
+Install MSYS2 on your C drive (following the [official guide](https://www.msys2.org/)), and then follow the steps for compiling with MinGW from the MSYS2 terminal, or use the Visual Studio Code toolchains.
+
+##
+
+> Educational Use Notice: This project is provided for educational and learning purposes only. You are welcome to read, study, and experiment
+> with this software and/or hardware. It is not intended for commercial use. This software and/or hardware is provided "as is", without warranty
+> of any kind. The author assumes no responsibility for any damages or issues resulting from its use.

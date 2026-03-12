@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  Program Name: Gatherers (C)                                                                                            //
-//  Author: Jeffrey Bednar                                                                                                 //
-//  Copyright: Illusion Interactive, 2011                                                                                  //
+// Project: Gatherers-Legacy                                                                                               //
+// Author: Jeffrey Bednar                                                                                                  //
+// Copyright: (c) Illusion Interactive, 2011                                                                               //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifndef _MENU_C_
 #define _MENU_C_
