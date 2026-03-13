@@ -13,28 +13,28 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
 
 ## 🔹 Key Features
 
-- Time-based Update Loop  
+- **Time-based Update Loop**  
   Smooth and consistent behavior across systems, using a time-delta (tick-based) update approach.
 
-- Custom Engine with Animation Support  
+- **Custom Engine with Animation Support**
   Built from scratch to manage entity states, movement, rendering, and basic AI, with sprite animations and fluid state transitions.
 
-- Classic Blending with Bitmap Masks  
+- **Classic Blending with Bitmap Masks**  
   Implements retro-style transparency using manually crafted bitmap masks for a rasterized software-rendered look.
 
-- State-based AI System  
+- **State-based AI System**  
   Workers transition between states like seeking, gathering, and returning, emulating early RTS gatherer logic.
 
-- Old-school Raycast Pathfinding  
+- **Old-school Raycast Pathfinding**  
   Uses line-of-sight raycasting to determine clear paths, skipping obstacles when possible.
 
-- Map Scrolling  
+- **Map Scrolling**  
   Supports camera panning to utilize the entire map.
 
-- Minimap Display  
+- **Minimap Display**  
   A compact overview of the world space, showing unit positions, buildings, and resource locations at a glance.
 
-- Text Blittering System  
+- **Text Blittering System**  
   Custom-built text renderer using bitmap fonts, used for in-game UI and overlays.
   
 ## 🔹 A Bit of History
