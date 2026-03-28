@@ -11,7 +11,7 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
 
 ![Demo 1](Demo/Gatherers-Legacy%201.gif)
 
-## 🔹 Key Features
+## 🔹 Features
 
 - **Time-based Update Loop**  
   Smooth and consistent behavior across systems, using a time-delta (tick-based) update approach.
