@@ -9,7 +9,7 @@ Initially created using [Dev-C++](https://www.bloodshed.net/) with the MinGW com
 
 ## 🔹 In Action
 
-![Demo](Gatherers.gif)
+![Demo 1](Demo/Gatherers-Legacy%201.gif)
 
 ## 🔹 Key Features
 
